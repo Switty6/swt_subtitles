@@ -21,6 +21,10 @@ files {
     'html/index.html',
     'html/style.css',
     'html/script.js',
+    'html/fonts/*.ttf',
+    'html/fonts/*.otf',
+    'html/fonts/*.woff',
+    'html/fonts/*.woff2',
     'audio/*.ogg'
 }
 

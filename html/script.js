@@ -26,6 +26,35 @@ class AudioSubtitleManager {
         });
     }
 
+    // Load custom fonts from configuration
+    loadCustomFonts() {
+        if (!this.config || !this.config.CustomFonts) {
+            this.log('No custom fonts configured');
+            return;
+        }
+
+        const fontStyleElement = document.getElementById('custom-fonts');
+        let fontCSS = '';
+
+        Object.entries(this.config.CustomFonts).forEach(([fontName, fontConfig]) => {
+            const fontUrl = `./fonts/${fontConfig.file}`;
+            fontCSS += `
+                @font-face {
+                    font-family: '${fontName}';
+                    src: url('${fontUrl}') format('${fontConfig.format || 'truetype'}');
+                    font-weight: ${fontConfig.weight || 'normal'};
+                    font-style: ${fontConfig.style || 'normal'};
+                }
+            `;
+            this.log(`Custom font loaded: ${fontName} from ${fontUrl}`);
+        });
+
+        if (fontCSS) {
+            fontStyleElement.textContent = fontCSS;
+            this.log('Custom fonts CSS injected');
+        }
+    }
+
     // Unified logging (eliminate redundancy)
     log(message, type = 'info') {
         const prefix = type === 'error' ? '[ERROR]' : '[AudioSubtitles]';
@@ -37,7 +66,10 @@ class AudioSubtitleManager {
     
     handleMessage(data) {
         const actions = {
-            'initialize': () => this.config = data.config,
+            'initialize': () => {
+                this.config = data.config;
+                this.loadCustomFonts();
+            },
             'playAudioWithSubtitles': () => this.playAudioWithSubtitles(data),
             'controlAudio': () => this.controlAudio(data.control, data.audioId, data.params),
             'addSubtitleDynamic': () => this.addSubtitleDynamic(data.audioId, data.subtitle),

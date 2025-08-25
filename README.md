@@ -219,6 +219,49 @@ end)
 
 ## 🎨 Customization
 
+### Custom Fonts
+
+Add custom fonts to your subtitle system:
+
+1. **Place font files** in the `html/fonts/` directory
+2. **Configure fonts** in `config.lua`:
+
+```lua
+Config.CustomFonts = {
+    ['my-custom-font'] = {
+        file = 'fonts/MyCustomFont.ttf',
+        format = 'truetype',
+        weight = 'normal',
+        style = 'normal'
+    },
+    ['my-bold-font'] = {
+        file = 'fonts/MyBoldFont.ttf',
+        format = 'truetype',
+        weight = 'bold',
+        style = 'normal'
+    }
+}
+```
+
+3. **Create styles** using your custom fonts:
+
+```lua
+Config.Styles = {
+    ['custom-style'] = {
+        fontSize = '20px',
+        color = '#FFFFFF',
+        backgroundColor = 'rgba(0, 0, 0, 0.7)',
+        fontFamily = 'my-custom-font, Arial, sans-serif'
+    }
+}
+```
+
+**Supported Font Formats:**
+- `.ttf` (TrueType Font)
+- `.otf` (OpenType Font)
+- `.woff` (Web Open Font Format)
+- `.woff2` (Web Open Font Format 2.0)
+
 ### Custom Styles
 
 Edit `config.lua` to add or modify subtitle styles:
@@ -310,7 +353,7 @@ For support and questions:
 
 **Version:** 1.0.0  
 **Author:** Switty  
-**Last Updated:** 2024
+**Last Updated:** 2025
 
 ---
 
